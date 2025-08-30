@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TravelBloom</title>
+    <style>
+       
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
+        
+   
+        nav {
+            background: rgba(52, 152, 219, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover { text-decoration: underline; }
+
+        .hero {
+            height: 90vh;
+            background: url('https://source.unsplash.com/1600x900/?travel,adventure') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; }
+
+        
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            border: none;
+            background: #e67e22;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+        .search-bar button:hover { background: #d35400; }
+
+        /* Social Media Links */
+        .social {
+            margin-top: 20px;
+        }
+        .social a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .book-btn {
+            background: #27ae60;
+            padding: 12px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .book-btn:hover { background: #1e8449; }
+
+        #results {
+            margin: 30px auto;
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .result-card {
+            background: #f1f1f1;
+            width: 250px;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .result-card img {
+            width: 100%;
+            border-radius: 5px;
+            height: 150px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+  
+    <nav>
+        <div class="logo"><a href="#">TravelBloom</a></div>
+        <div class="links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </nav>
+
+    
+    <div class="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>Explore Your Next Destination</h1>
+            <p>Discover cultural gems, hidden beaches, and breathtaking landscapes around the world.</p>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Enter a destination or keyword...">
+                <button onclick="searchDestinations()">Search</button>
+            </div>
+
+         
+            <a href="#" class="book-btn">Book Now</a>
+
+        
+            <div class="social">
+                <a href="#" target="_blank">🌐</a>
+                <a href="#" target="_blank">📸</a>
+                <a href="#" target="_blank">🐦</a>
+            </div>
+        </div>
+    </div>
+
+   
+    <div id="results"></div>
+
+    <script>
+       
+        const destinations = [
+        { name: "Maldives Beach", img: "https://via.placeholder.com/300x200?text=Maldives+Beach" },
+{ name: "Bora Bora", img: "https://via.placeholder.com/300x200?text=Bora+Bora" },
+{ name: "Angkor Wat", img: "https://via.placeholder.com/300x200?text=Angkor+Wat" },
+{ name: "Golden Temple", img: "https://via.placeholder.com/300x200?text=Golden+Temple" },
+{ name: "Japan", img: "https://via.placeholder.com/300x200?text=Japan" },
+{ name: "Italy", img: "https://via.placeholder.com/300x200?text=Italy" }
+
+        ];
+
+        function searchDestinations() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = "";
+
+            const filtered = destinations.filter(d => d.name.toLowerCase().includes(query));
+            
+            if(filtered.length === 0) {
+                resultsDiv.innerHTML = "<p style='text-align:center; width:100%;'>No results found.</p>";
+                return;
+            }
+
+            filtered.forEach(d => {
+                const card = document.createElement('div');
+                card.className = "result-card";
+                card.innerHTML = `<img src="${d.img}" alt="${d.name}"><h3>${d.name}</h3>`;
+                resultsDiv.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
